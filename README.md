@@ -17,7 +17,7 @@ class Solution:
             right += 1
         return right - left
 ```
-稍微优化，用defaultdict取代数组。
+稍微优化，用defaultdict取代数组:
 ```python
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
