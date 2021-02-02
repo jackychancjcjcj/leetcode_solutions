@@ -1,6 +1,6 @@
 # leetcode_solutions
-* [424\.替换后的最长重复字符](#424.替换后的最长重复字符)
-## 424.替换后的最长重复字符
+* [424\.替换后的最长重复字符](#424\.替换后的最长重复字符)
+## 424\.替换后的最长重复字符
 ```python
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
