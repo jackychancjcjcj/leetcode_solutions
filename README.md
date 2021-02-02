@@ -1,3 +1,3 @@
 # leetcode_solutions
-* a[#a]
+* [a](#a)
 ## a
