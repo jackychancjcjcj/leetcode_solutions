@@ -1,5 +1,6 @@
 # leetcode_solutions
 * [424.替换后的最长重复字符](#424)
+* [408.滑动窗口中位数](#408)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -33,4 +34,15 @@ class Solution:
                 left += 1
             right += 1
         return right - left
+```
+## <span id='408'>408.滑动窗口中位数</span>
+```python
+class Solution:
+    def medianSlidingWindow(self, nums: List[int], k: int) -> List[float]:
+        # 数组+暴力
+        median = lambda a: a[len(a)//2] if len(a)%2 else a[len(a)//2-1]/2 + a[len(a)//2]/2
+        res = []
+        for i in range(len(nums)-k+1):
+            res.append(median(sorted(nums[i:i+k])))
+        return res 
 ```
