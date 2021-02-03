@@ -36,6 +36,7 @@ class Solution:
         return right - left
 ```
 ## <span id='408'>408.滑动窗口中位数</span>
+解法1：
 ```python
 class Solution:
     def medianSlidingWindow(self, nums: List[int], k: int) -> List[float]:
@@ -45,4 +46,19 @@ class Solution:
         for i in range(len(nums)-k+1):
             res.append(median(sorted(nums[i:i+k])))
         return res 
+```
+解法2：
+```python
+class Solution:
+    def medianSlidingWindow(self, nums: List[int], k: int) -> List[float]:
+        # 数组+二分
+        import bisect
+        median = lambda a:a[len(a)//2] if len(a)%2 else a[len(a)//2-1]/2 + a[len(a)//2]/2
+        a = sorted(nums[:k])
+        res = [median(a)]
+        for i,j in zip(nums[:-k],nums[k:]):
+            a.remove(i)
+            a.insert(bisect.bisect_left(a,j),j)
+            res.append(median(a))
+        return res
 ```
