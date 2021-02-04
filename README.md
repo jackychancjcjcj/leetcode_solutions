@@ -1,6 +1,7 @@
 # leetcode_solutions
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
+* [643.子数组最大平均数I](#643-1)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -76,4 +77,28 @@ class Solution:
             a.insert(bisect.bisect_left(a,j),j)
             res.append(median(a))
         return res
+```
+## <span id='643-1'>643.子数组最大平均数I</span>
+暴力解法：
+```python
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        Maxaverage = sum(nums[:k])/k
+        for i in range(1,len(nums)-k+1):
+            if nums[i-1] > nums[i+k-1]:
+                pass
+            else:
+                Maxaverage = max(Maxaverage,sum(nums[i:k+i])/k)
+        return Maxaverage
+```
+维护两个数组：
+```python
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        Maxaverage = sum(nums[:k])
+        total = sum(nums[:k])
+        for i in range(k,len(nums)):
+            total = total - nums[i-k] + nums[i]
+            Maxaverage = max(Maxaverage,total)
+        return Maxaverage/k
 ```
