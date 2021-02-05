@@ -3,6 +3,7 @@
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
 * [888.公平的糖果棒交换](#888)
+* [1208.尽可能使字符串相等](#1208)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -104,7 +105,7 @@ class Solution:
         return Maxaverage/k
 ```
 ## <span id='888'>888.公平的糖果棒交换</span>
-哈希表
+哈希表：
 ```python
 class Solution:
     def fairCandySwap(self, A: List[int], B: List[int]) -> List[int]:
@@ -115,4 +116,24 @@ class Solution:
             x = y + delta
             if x in setA:
                 return [x,y]
+```
+## <span id='1208'>1208.尽可能使字符串相等</span>
+队列解法：
+```python
+class Solution:
+    def equalSubstring(self, s: str, t: str, maxCost: int) -> int:
+        tmp = []
+        from collections import deque
+        tmp_2 = deque()
+        total = 0
+        output = -inf
+        for i,j in zip(s,t):
+            tmp.append(abs(ord(i)-ord(j)))
+        for i in tmp:
+            total += i
+            tmp_2.append(i)
+            if total > maxCost:
+                total -= tmp_2.popleft()
+            output = max(output,len(tmp_2))
+        return output
 ```
