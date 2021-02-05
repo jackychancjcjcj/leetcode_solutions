@@ -2,6 +2,7 @@
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
+* [888.公平的糖果棒交换](#888)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -101,4 +102,17 @@ class Solution:
             total = total - nums[i-k] + nums[i]
             Maxaverage = max(Maxaverage,total)
         return Maxaverage/k
+```
+## <span id='888'>888.公平的糖果棒交换</span>
+哈希表
+```python
+class Solution:
+    def fairCandySwap(self, A: List[int], B: List[int]) -> List[int]:
+        sumA,sumB = sum(A),sum(B)
+        delta = (sumA-sumB)//2
+        setA = set(A)
+        for y in B:
+            x = y + delta
+            if x in setA:
+                return [x,y]
 ```
