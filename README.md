@@ -4,6 +4,7 @@
 * [643.子数组最大平均数I](#643-1)
 * [888.公平的糖果棒交换](#888)
 * [1208.尽可能使字符串相等](#1208)
+* [1423.可获得的最大点数])(#1423)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -137,3 +138,18 @@ class Solution:
             output = max(output,len(tmp_2))
         return output
 ```
+## <span id='1423'>1423.可获得的最大点数</span>
+滑动窗口：
+```python
+class Solution:
+    def maxScore(self, cardPoints: List[int], k: int) -> int:
+        n = len(cardPoints)
+        windowSize = n - k
+        total = sum(cardPoints[:windowSize])
+        minScore = total
+        for i in range(windowSize,n):
+            total = total - cardPoints[i-windowSize] + cardPoints[i]
+            minScore = min(minScore,total)
+        return sum(cardPoints) - minScore
+```
+
