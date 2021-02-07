@@ -5,6 +5,7 @@
 * [888.公平的糖果棒交换](#888)
 * [1208.尽可能使字符串相等](#1208)
 * [1423.可获得的最大点数](#1423)
+* [665.非递减数列](#665)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -152,4 +153,20 @@ class Solution:
             minScore = min(minScore,total)
         return sum(cardPoints) - minScore
 ```
-
+## <span id='665'>665.非递减数列</span>
+```python
+class Solution:
+    def checkPossibility(self, nums: List[int]) -> bool:
+        N = len(nums)
+        count = 0
+        for i in range(1, N):
+            if nums[i] < nums[i - 1]:
+                count += 1
+                if i == 1 or nums[i] >= nums[i - 2]:
+                    nums[i - 1] = nums[i]
+                else:
+                    nums[i] = nums[i - 1]
+            if count == 2:
+                return False
+        return True
+```
