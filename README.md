@@ -6,6 +6,7 @@
 * [1208.尽可能使字符串相等](#1208)
 * [1423.可获得的最大点数](#1423)
 * [665.非递减数列](#665)
+* [978.最长湍流子数组](#978)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -169,4 +170,42 @@ class Solution:
             if count == 2:
                 return False
         return True
+```
+## <span id='978'>978.最长湍流子数组</span>
+两个数组，一个记录前面符号，一个记录现在符号：
+```python
+class Solution:
+    def maxTurbulenceSize(self, arr: List[int]) -> int:
+        n = len(arr)
+        count = 2
+        maxLen = -inf 
+        symbol_last = 1
+        if n == 1:
+            return 1
+        if arr[0] < arr[1]:
+            symbol_last = 1
+        elif arr[0] == arr[1]:
+            symbol_last = 0
+            count = 1
+        else:
+            symbol_last = -1
+        if n == 2 and symbol_last == 0:
+            return 1
+        for i in range(2,n):
+            if arr[i] > arr[i-1]:
+                symbol_now = 1
+            elif arr[i] == arr[i-1]:
+                maxLen = max(maxLen,count)
+                count = 1
+                symbol_last = 0 
+                continue
+            else:
+                symbol_now = -1
+            if symbol_now * symbol_last == 1:
+                maxLen = max(maxLen,count)
+                count = 2
+            else:
+                count += 1
+            symbol_last = symbol_now
+        return max(maxLen,count)
 ```
