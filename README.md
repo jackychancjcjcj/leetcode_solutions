@@ -7,6 +7,7 @@
 * [1423.可获得的最大点数](#1423)
 * [665.非递减数列](#665)
 * [978.最长湍流子数组](#978)
+* [992.K 个不同整数的子数组](#992)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -208,4 +209,34 @@ class Solution:
                 count += 1
             symbol_last = symbol_now
         return max(maxLen,count)
+```
+## <span id='992'>992.K 个不同整数的子数组</span>
+滑动窗口：
+```python
+class Solution:
+    def subarraysWithKDistinct(self, A: List[int], K: int) -> int:
+        from collections import Counter
+        left1 = left2 = right = 0
+        num1,num2 = Counter(),Counter()
+        tot1 = tot2 = 0
+        res = 0
+        for right,num in enumerate(A):
+            if num1[num] == 0:
+                tot1 += 1
+            num1[num] += 1
+            if num2[num] == 0:
+                tot2 += 1
+            num2[num] += 1
+            while tot1 > K:
+                num1[A[left1]] -= 1
+                if num1[A[left1]] == 0:
+                    tot1 -= 1
+                left1 += 1
+            while tot2 > K-1:
+                num2[A[left2]] -= 1
+                if num2[A[left2]] == 0:
+                    tot2 -= 1
+                left2 += 1
+            res += left2 - left1
+        return res
 ```
