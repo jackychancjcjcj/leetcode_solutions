@@ -10,6 +10,7 @@
 * [992.K 个不同整数的子数组](#992)
 * [567.字符串的排列](#567)
 * [561.数组拆分I](#561-1)
+* [485.最大连续1的个数](#485)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -273,4 +274,19 @@ class Solution:
             if i % 2 == 0:
                 total += nums[i]
         return total
+```
+## <span id='485'>485.最大连续1的个数</span>
+```python
+class Solution:
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        tmp = 0
+        max_1 = -inf
+        for i in range(len(nums)):
+            if nums[i] == 1:
+                tmp += 1
+            else:
+                max_1 = max(max_1,tmp)
+                tmp = 0
+        max_1 = max(max_1,tmp)
+        return max_1
 ```
