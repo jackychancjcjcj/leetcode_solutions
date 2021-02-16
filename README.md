@@ -8,6 +8,7 @@
 * [665.非递减数列](#665)
 * [978.最长湍流子数组](#978)
 * [992.K 个不同整数的子数组](#992)
+* [567.字符串的排列](#567)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -239,4 +240,25 @@ class Solution:
                 left2 += 1
             res += left2 - left1
         return res
+```
+## <span id='567'>567.字符串的排列</span>
+滑动窗口+列表：
+```python
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        t1 = collections.Counter(s1)
+        N = len(s2)
+        left = 0
+        right = len(s1) - 1
+        t2 = collections.Counter(s2[0:right])
+        while right < N:
+            t2[s2[right]] += 1
+            if t1 == t2:
+                return True
+            t2[s2[left]] -= 1
+            if t2[s2[left]] == 0:
+                del t2[s2[left]]
+            left += 1
+            right += 1
+        return False
 ```
