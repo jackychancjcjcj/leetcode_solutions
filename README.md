@@ -9,6 +9,7 @@
 * [978.最长湍流子数组](#978)
 * [992.K 个不同整数的子数组](#992)
 * [567.字符串的排列](#567)
+* [561.数组拆分I](#561-1)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -261,4 +262,15 @@ class Solution:
             left += 1
             right += 1
         return False
+```
+## <span id='561-1>561.数组拆分I</span>
+```python
+class Solution:
+    def arrayPairSum(self, nums: List[int]) -> int:
+        nums.sort()
+        total = 0
+        for i in range(len(nums)):
+            if i % 2 == 0:
+                total += nums[i]
+        return total
 ```
