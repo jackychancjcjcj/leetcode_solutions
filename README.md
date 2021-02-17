@@ -12,6 +12,7 @@
 * [561.数组拆分I](#561-1)
 * [485.最大连续1的个数](#485)
 * [566.重塑矩阵](#566)
+* [765.情侣牵手](#765)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -312,4 +313,19 @@ class Solution:
                     output.append(tmp)
                     tmp = []
         return output
+```
+## <span id='765'>765.情侣牵手</span>
+贪心算法+异或位运算：
+```python
+class Solution:
+    def minSwapsCouples(self, row: List[int]) -> int:
+        res = 0
+        for i in range(0,len(row)-1,2):
+            if row[i] == row[i+1]^1:
+                continue
+            for j in range(i+1,len(row)):
+                if row[i] == row[j]^1:
+                    row[i+1],row[j] = row[j],row[i+1]
+            res += 1
+        return res 
 ```
