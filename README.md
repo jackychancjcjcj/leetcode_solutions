@@ -11,6 +11,7 @@
 * [567.字符串的排列](#567)
 * [561.数组拆分I](#561-1)
 * [485.最大连续1的个数](#485)
+* [566.重塑矩阵](#566)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -289,4 +290,26 @@ class Solution:
                 tmp = 0
         max_1 = max(max_1,tmp)
         return max_1
+```
+## <span id='566'>566.重塑矩阵</span>
+```python
+class Solution:
+    def matrixReshape(self, nums: List[List[int]], r: int, c: int) -> List[List[int]]:
+        m,n = len(nums),len(nums[0])
+        if m*n != r*c :
+            return nums
+        output = []
+        tmp = []
+        count = 0
+        for i in range(m):
+            for j in range(n):
+                count += 1
+                if count < c:
+                    tmp.append(nums[i][j])
+                else:
+                    tmp.append(nums[i][j])
+                    count = 0
+                    output.append(tmp)
+                    tmp = []
+        return output
 ```
