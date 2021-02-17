@@ -1,4 +1,5 @@
 # leetcode_solutions
+[![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")](https://ACGkaka.github.io "Author")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
