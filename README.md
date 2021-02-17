@@ -1,7 +1,7 @@
 # leetcode_solutions
-[![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")]
-[![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")]
-[![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")]
+![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
+![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
+![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
