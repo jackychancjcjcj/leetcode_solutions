@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-17%20Feb%202021-brightgreen.svg?style=flat-square)
+![Last update](https://img.shields.io/badge/last%20update-18%20Feb%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -17,6 +17,7 @@
 * [485.最大连续1的个数](#485)
 * [566.重塑矩阵](#566)
 * [765.情侣牵手](#765)
+* [995.K连续位的最小翻转次数](#995)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -332,4 +333,25 @@ class Solution:
                     row[i+1],row[j] = row[j],row[i+1]
             res += 1
         return res 
+```
+## <span id='995'>995.K连续位的最小翻转次数</span>
+贪心+差分运算优化：
+```python
+class Solution:
+    def minKBitFlips(self, A: List[int], K: int) -> int:
+        n = len(A)
+        res = 0
+        tmp = [0] * (n+1)
+        ans = 0
+        for i in range(n):
+            res += tmp[i]
+            if (A[i]+res) % 2 == 0: # 证明当前位置是偶数
+                if i + K > n:
+                    return -1
+                res += 1
+                tmp[i+K] -= 1 # 即使超出数组也要弄进去
+                ans += 1 
+        return ans
+
+
 ```
