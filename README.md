@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-18%20Feb%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-19%20Feb%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -18,6 +18,7 @@
 * [566.重塑矩阵](#566)
 * [765.情侣牵手](#765)
 * [995.K连续位的最小翻转次数](#995)
+* [1004.最大连续1的个数III](#1004-3)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -352,6 +353,20 @@ class Solution:
                 tmp[i+K] -= 1 # 即使超出数组也要弄进去
                 ans += 1 
         return ans
-
-
+```
+## <span id='1004-3'>1004.最大连续1的个数III</span>
+滑动窗口：
+```python 
+class Solution:
+    def longestOnes(self, A: List[int], K: int) -> int:
+        n = len(A)
+        left = lsum = rsum = 0
+        ans = 0
+        for right in range(n):
+            rsum += 1 - A[right]
+            while lsum < rsum - K:
+                lsum += 1 - A[left]
+                left += 1
+            ans = max(ans,right-left+1)
+        return ans 
 ```
