@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-19%20Feb%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-20%20Feb%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -19,6 +19,7 @@
 * [765.情侣牵手](#765)
 * [995.K连续位的最小翻转次数](#995)
 * [1004.最大连续1的个数III](#1004-3)
+* [697.数组的度](#697)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -369,4 +370,25 @@ class Solution:
                 left += 1
             ans = max(ans,right-left+1)
         return ans 
+```
+## <span id='697'>697.数组的度</span>
+哈希表：
+```python
+class Solution:
+    def findShortestSubArray(self, nums: List[int]) -> int:
+        from collections import defaultdict
+        tmp = defaultdict(list)
+        for index,num in enumerate(nums):
+            if not tmp[num]:
+                tmp[num] = []
+            tmp[num].append(index)
+        max_len = -inf
+        res = inf
+        for values in tmp.values():
+            if len(values) > max_len:
+                max_len = len(values)
+                res = values[-1] - values[0] + 1
+            elif len(values) == max_len:
+                res = min(res,values[-1] - values[0] + 1)
+        return res
 ```
