@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-20%20Feb%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-2120Feb%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -20,6 +20,7 @@
 * [995.K连续位的最小翻转次数](#995)
 * [1004.最大连续1的个数III](#1004-3)
 * [697.数组的度](#697)
+* [1438.绝对差不超过限制的最长连续子数组](#1438)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -390,5 +391,22 @@ class Solution:
                 res = values[-1] - values[0] + 1
             elif len(values) == max_len:
                 res = min(res,values[-1] - values[0] + 1)
+        return res
+```
+## <span id='1438'>1438.绝对差不超过限制的最长连续子数组</span>
+滑动窗口+排序列表：
+```python
+class Solution:
+    def longestSubarray(self, nums: List[int], limit: int) -> int:
+        from sortedcontainers import SortedList
+        s = SortedList()
+        left = right = res = 0
+        while right < len(nums):
+            s.add(nums[right])
+            while s[-1] - s[0] > limit:
+                s.remove(nums[left])
+                left += 1
+            res = max(res,right-left+1)
+            right += 1
         return res
 ```
