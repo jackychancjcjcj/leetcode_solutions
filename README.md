@@ -410,3 +410,28 @@ class Solution:
             right += 1
         return res
 ```
+滑动窗口+单项队列：
+```python
+class Solution:
+    def longestSubarray(self, nums: List[int], limit: int) -> int:
+        from collections import deque
+        max_q, min_q = deque(),deque()
+        left = right = res = 0
+        while right < len(nums):
+            while max_q and nums[right] > max_q[-1]:
+                max_q.pop()
+            while min_q and nums[right] < min_q[-1]:
+                min_q.pop()
+            max_q.append(nums[right])
+            min_q.append(nums[right])
+            while max_q and min_q and max_q[0] - min_q[0] > limit:
+                if nums[left] == min_q[0]:
+                    min_q.popleft()
+                if nums[left] == max_q[0]:
+                    max_q.popleft()
+                left += 1
+            res = max(res,right-left+1)
+            right += 1
+        return res
+            
+```
