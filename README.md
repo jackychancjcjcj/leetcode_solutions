@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-22%Feb%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-22Feb%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -21,6 +21,7 @@
 * [1004.最大连续1的个数III](#1004-3)
 * [697.数组的度](#697)
 * [1438.绝对差不超过限制的最长连续子数组](#1438)
+* [766.托普利茨矩阵](#766)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -433,5 +434,39 @@ class Solution:
             res = max(res,right-left+1)
             right += 1
         return res
-            
+```
+## <span id='766'>766.托普利茨矩阵</span>
+暴力遍历：
+```python
+class Solution:
+    def isToeplitzMatrix(self, matrix: List[List[int]]) -> bool:
+        m,n = len(matrix),len(matrix[0])
+        for i in range(m-1):
+            column = 0
+            row = i
+            tmp = matrix[i][column]
+            while row < m-1 and column < n-1:
+                row += 1 
+                column += 1
+                if tmp != matrix[row][column]:
+                    return False
+        for i in range(1,n-1):
+            row = 0
+            column = i
+            tmp = matrix[row][i]
+            while row < m-1 and column < n-1:
+                row += 1 
+                column += 1
+                if tmp != matrix[row][column]:
+                    return False
+        return True
+```
+切片（思路，i行的[:-1]是要等于i+1行的[1:]的）：
+```python
+class Solution:
+    def isToeplitzMatrix(self, matrix: List[List[int]]) -> bool:
+        for i in range(len(matrix)-1):
+            if matrix[i][:-1] != matrix[i+1][1:]:
+                return False
+        return True
 ```
