@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-22Feb%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-23Feb%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -22,6 +22,7 @@
 * [697.数组的度](#697)
 * [1438.绝对差不超过限制的最长连续子数组](#1438)
 * [766.托普利茨矩阵](#766)
+* [1052.爱生气的书店老板](#1052)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -469,4 +470,28 @@ class Solution:
             if matrix[i][:-1] != matrix[i+1][1:]:
                 return False
         return True
+```
+## <span id='1052'>1052.爱生气的书店老板</span>
+滑动窗口：
+```python
+class Solution:
+    def maxSatisfied(self, customers: List[int], grumpy: List[int], X: int) -> int:
+        res = ans_2 = 0
+        ans = -inf
+        if X >= len(grumpy):
+            return sum(customers)
+        for i in range(X):
+            if grumpy[i] == 1:
+                res += customers[i]
+            else:
+                ans_2 += customers[i]
+        ans = max(ans,res)
+        for i in range(X,len(customers)):
+            res -= grumpy[i-X] * customers[i-X]
+            if grumpy[i] == 1:
+                res += customers[i]
+            else:
+                ans_2 += customers[i]
+            ans = max(ans,res)
+        return ans_2 + ans
 ```
