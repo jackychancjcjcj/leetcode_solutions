@@ -509,3 +509,13 @@ class Solution:
             res.append(tmp[::-1])
         return res
 ```
+二分法查找，遍历减半：
+```python
+class Solution:
+    def flipAndInvertImage(self, A: List[List[int]]) -> List[List[int]]:
+        for row in A:
+            for j in range((len(row) + 1) // 2):
+                if row[j] == row[-1-j]:             # 采用Python化的符号索引
+                    row[j] = row[-1-j] = 1 - row[j]    
+        return A
+```
