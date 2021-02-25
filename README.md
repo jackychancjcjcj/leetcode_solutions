@@ -24,6 +24,7 @@
 * [766.托普利茨矩阵](#766)
 * [1052.爱生气的书店老板](#1052)
 * [832.翻转图像](#832)
+* [867.转置矩阵](#867)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -518,4 +519,16 @@ class Solution:
                 if row[j] == row[-1-j]:             # 采用Python化的符号索引
                     row[j] = row[-1-j] = 1 - row[j]    
         return A
+```
+## <span id='867'>867.转置矩阵</span>
+暴力遍历：
+```python
+class Solution:
+    def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
+        m,n = len(matrix),len(matrix[0])
+        res = [[0]*m for _ in range(n)]
+        for i in range(m):
+            for j in range(n):
+                res[j][i] = matrix[i][j]
+        return res
 ```
