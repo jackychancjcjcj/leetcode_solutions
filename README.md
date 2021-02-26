@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-24Feb%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-26Feb%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -25,6 +25,7 @@
 * [1052.爱生气的书店老板](#1052)
 * [832.翻转图像](#832)
 * [867.转置矩阵](#867)
+* [1178.猜字谜](#1178)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -530,5 +531,33 @@ class Solution:
         for i in range(m):
             for j in range(n):
                 res[j][i] = matrix[i][j]
+        return res
+```
+## <span id='1178'>1178.猜字谜</span>
+状态压缩+子集：
+```python
+class Solution:
+    def findNumOfValidWords(self, words: List[str], puzzles: List[str]) -> List[int]:
+        freq = collections.Counter()
+        res = []
+        for word in words:
+            mask = 0
+            for c in word:
+                mask |= 1 << (ord(c)-ord('a'))
+            freq[mask] += 1
+        for puzzle in puzzles:
+            total = 0
+            for perm in self.subset(puzzle[1:]):
+                mask = 1 << (ord(puzzle[0])-ord('a'))
+                for c in perm:
+                    mask |= 1 << (ord(c)-ord('a'))
+                total += freq[mask]
+            res.append(total)
+        return res
+
+    def subset(self,words):
+        res = ['']
+        for i in words:
+            res = res + [i+word for word in res]
         return res
 ```
