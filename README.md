@@ -26,6 +26,7 @@
 * [832.翻转图像](#832)
 * [867.转置矩阵](#867)
 * [1178.猜字谜](#1178)
+* [395.至少有K个重复字符的最长子串](#395)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -560,4 +561,16 @@ class Solution:
         for i in words:
             res = res + [i+word for word in res]
         return res
+```
+## <span id='395'>395.至少有K个重复字符的最长子串]</span>
+递归：
+```python
+class Solution:
+    def longestSubstring(self, s: str, k: int) -> int:
+        if len(s) < k:
+            return 0
+        for c in set(s):
+            if s.count(c) < k:
+                return max(self.longestSubstring(t,k) for t in s.split(c))
+        return len(s)
 ```
