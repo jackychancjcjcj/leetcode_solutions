@@ -27,6 +27,7 @@
 * [867.转置矩阵](#867)
 * [1178.猜字谜](#1178)
 * [395.至少有K个重复字符的最长子串](#395)
+* [896.单调数列](#896)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -573,4 +574,19 @@ class Solution:
             if s.count(c) < k:
                 return max(self.longestSubstring(t,k) for t in s.split(c))
         return len(s)
+```
+## <span id='896'>896.单调数列</span>
+```python
+class Solution:
+    def isMonotonic(self, A: List[int]) -> bool:
+        if len(A) <= 1:
+            return True
+        last_diff = A[1] - A[0]
+        for i in range(2,len(A)):
+            now_diff = A[i] - A[i-1]
+            if last_diff * now_diff < 0:
+                return False
+            if now_diff != 0:
+                last_diff = now_diff
+        return True
 ```
