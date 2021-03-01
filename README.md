@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-28Feb%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-01Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -28,6 +28,7 @@
 * [1178.猜字谜](#1178)
 * [395.至少有K个重复字符的最长子串](#395)
 * [896.单调数列](#896)
+* [303.区域和检索 - 数组不可变](#303)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -589,4 +590,18 @@ class Solution:
             if now_diff != 0:
                 last_diff = now_diff
         return True
+```
+## <span id='303'>区域和检索 - 数组不可变</span>
+前缀和:
+```python
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.nums = [0]
+        self.res = self.nums
+        for num in nums:
+            self.res.append(self.res[-1]+num)
+
+    def sumRange(self, i: int, j: int) -> int:
+        return self.res[j+1] - self.res[i]
 ```
