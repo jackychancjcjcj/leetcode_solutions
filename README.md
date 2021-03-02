@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-01Mar%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-02Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -29,6 +29,7 @@
 * [395.至少有K个重复字符的最长子串](#395)
 * [896.单调数列](#896)
 * [303.区域和检索 - 数组不可变](#303)
+* [304.二维区域和检索 - 矩阵不可变](#304)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -604,4 +605,38 @@ class NumArray:
 
     def sumRange(self, i: int, j: int) -> int:
         return self.res[j+1] - self.res[i]
+```
+## <span id='304'>304.二维区域和检索 - 矩阵不可变</span>
+一维前缀和：
+```python
+class NumMatrix:
+
+    def __init__(self, matrix: List[List[int]]):
+        m,n = len(matrix),(len(matrix[0]) if matrix else 0)
+        _sum = [[0]*(n+1) for _ in range(m)]
+        for i in range(m):
+            for j in range(n):
+                _sum[i][j+1] = _sum[i][j] + matrix[i][j]
+        self.sum = _sum
+
+    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
+        total = 0
+        for i in range(row1,row2+1):
+            total += self.sum[i][col2+1] - self.sum[i][col1]
+        return total
+```
+二维前缀和：
+```python
+class NumMatrix:
+
+    def __init__(self, matrix: List[List[int]]):
+        m,n = len(matrix),(len(matrix[0]) if matrix else 0)
+        _sum = [[0]*(n+1) for _ in range(m+1)]
+        for i in range(m):
+            for j in range(n):
+                _sum[i+1][j+1] = _sum[i+1][j] + _sum[i][j+1] - _sum[i][j] + matrix[i][j]
+        self.sum = _sum
+
+    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
+        return self.sum[row2+1][col2+1] - self.sum[row1][col2+1] - self.sum[row2+1][col1] + self.sum[row1][col1]
 ```
