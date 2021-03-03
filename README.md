@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-02Mar%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-03Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -30,6 +30,7 @@
 * [896.单调数列](#896)
 * [303.区域和检索 - 数组不可变](#303)
 * [304.二维区域和检索 - 矩阵不可变](#304)
+* [338.比特位计数](#338)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -639,4 +640,31 @@ class NumMatrix:
 
     def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
         return self.sum[row2+1][col2+1] - self.sum[row1][col2+1] - self.sum[row2+1][col1] + self.sum[row1][col1]
+```
+## <span id='338'>338.比特位计数</span>
+位与运行：
+```python
+class Solution:
+    def countBits(self, num: int) -> List[int]:
+        def countOnes(x: int) -> int:
+            ones = 0
+            while x > 0:
+                x &= (x - 1)
+                ones += 1
+            return ones
+        
+        bits = [countOnes(i) for i in range(num + 1)]
+        return bits
+```
+位与运算+动态规划：
+```python
+class Solution:
+    def countBits(self, num: int) -> List[int]:
+        bits = [0]
+        highbit = 0
+        for i in range(1,num+1):
+            if (i & i-1) == 0:
+                highbit = i
+            bits.append(bits[i-highbit]+1)
+        return bits
 ```
