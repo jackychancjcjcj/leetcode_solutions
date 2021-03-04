@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-03Mar%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-04Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -31,6 +31,7 @@
 * [303.区域和检索 - 数组不可变](#303)
 * [304.二维区域和检索 - 矩阵不可变](#304)
 * [338.比特位计数](#338)
+* [354.俄罗斯套娃信封问题](#354)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -667,4 +668,34 @@ class Solution:
                 highbit = i
             bits.append(bits[i-highbit]+1)
         return bits
+```
+## <span id='354'>354.俄罗斯套娃信封问题</span>
+动态规划：
+```python
+class Solution:
+    def maxEnvelopes(self, envelopes: List[List[int]]) -> int:
+        n = len(envelopes)
+        envelopes.sort(key=lambda x:(x[0],-x[1]))
+        res = [1]*n
+        for i in range(n):
+            for j in range(i):
+                if envelopes[j][1] < envelopes[i][1]:
+                    res[i] = max(res[i],res[j]+1)
+        return max(res)
+```
+二分查找+动态规划：
+```python
+class Solution:
+    def maxEnvelopes(self, envelopes: List[List[int]]) -> int:
+        import bisect
+        n = len(envelopes)
+        envelopes.sort(key=lambda x:(x[0],-x[1]))
+        res = [envelopes[0][1]]
+        for i in range(n):
+            if (num := envelopes[i][1]) > res[-1]:
+                res.append(num)
+            else:
+                index = bisect.bisect_left(res,num)
+                res[index] = num
+        return len(res)
 ```
