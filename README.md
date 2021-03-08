@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-04Mar%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-07Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -32,6 +32,7 @@
 * [304.二维区域和检索 - 矩阵不可变](#304)
 * [338.比特位计数](#338)
 * [354.俄罗斯套娃信封问题](#354)
+* [503.下一个更大元素 II](#503)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -698,4 +699,20 @@ class Solution:
                 index = bisect.bisect_left(res,num)
                 res[index] = num
         return len(res)
+```
+## <span id='503'>503.下一个更大元素 II</span>
+单调栈+循环数组：
+```python
+
+class Solution:
+    def nextGreaterElements(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        ret = [-1] * n
+        stk = list()
+
+        for i in range(n * 2 - 1):
+            while stk and nums[stk[-1]] < nums[i % n]:
+                ret[stk.pop()] = nums[i % n]
+            stk.append(i % n)
+        return ret
 ```
