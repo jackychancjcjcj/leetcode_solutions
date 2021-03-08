@@ -34,6 +34,7 @@
 * [354.俄罗斯套娃信封问题](#354)
 * [503.下一个更大元素 II](#503)
 * [131.分割回文串](#131)
+* [132.分割回文串 II](#132)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -731,4 +732,28 @@ class Solution:
                     cc(s[i:],tmp+[s[:i]])
         cc(s,[])
         return res
+```
+## <span id='132'>132.分割回文串 II</span>
+动态规划：
+```python
+class Solution:
+    def minCut(self, s: str) -> int:
+        n = len(s)
+        g = [[True] * n for _ in range(n)]
+
+        for i in range(n - 1, -1, -1):
+            for j in range(i + 1, n):
+                g[i][j] = (s[i] == s[j]) and g[i + 1][j - 1]
+
+        f = [float("inf")] * n
+        for i in range(n):
+            if g[0][i]:
+                f[i] = 0
+            else:
+                for j in range(i):
+                    if g[j + 1][i]:
+                        f[i] = min(f[i], f[j] + 1)
+        
+        return f[n - 1]
+
 ```
