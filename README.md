@@ -33,6 +33,7 @@
 * [338.比特位计数](#338)
 * [354.俄罗斯套娃信封问题](#354)
 * [503.下一个更大元素 II](#503)
+* [131.分割回文串](#131)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -715,4 +716,19 @@ class Solution:
                 ret[stk.pop()] = nums[i % n]
             stk.append(i % n)
         return ret
+```
+## <span id='131'>131.分割回文串</span>
+回溯：
+```python
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        res = []
+        def cc(s, tmp):
+            if not s:
+                return res.append(tmp)
+            for i in range(1,len(s)+1):
+                if s[:i] == s[:i][::-1]:
+                    cc(s[i:],tmp+[s[:i]])
+        cc(s,[])
+        return res
 ```
