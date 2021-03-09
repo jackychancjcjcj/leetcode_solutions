@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-07Mar%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-08Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -35,6 +35,7 @@
 * [503.下一个更大元素 II](#503)
 * [131.分割回文串](#131)
 * [132.分割回文串 II](#132)
+* [1047.删除字符串中的所有相邻重复项](#1047)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -756,4 +757,17 @@ class Solution:
         
         return f[n - 1]
 
+```
+## <span id='1047'>1047.删除字符串中的所有相邻重复项</span>
+栈：
+```python
+class Solution:
+    def removeDuplicates(self, S: str) -> str:
+        stk = list()
+        for s in S:
+            if stk and stk[-1] == s:
+                stk.pop()
+            else:
+                stk.append(s)
+        return ''.join(stk)
 ```
