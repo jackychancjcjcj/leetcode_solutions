@@ -36,6 +36,7 @@
 * [131.分割回文串](#131)
 * [132.分割回文串 II](#132)
 * [1047.删除字符串中的所有相邻重复项](#1047)
+* [224.基本计算器](#224)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -770,4 +771,36 @@ class Solution:
             else:
                 stk.append(s)
         return ''.join(stk)
+```
+## <span id='224'>224.基本计算器</span>
+栈：
+```python
+class Solution:
+    def calculate(self, s: str) -> int:
+        res = 0
+        num = 0
+        stack = []
+        sign = 1
+        for c in s:
+            if c.isdigit():
+                num = num * 10 + int(c)
+            elif c == "+":
+                res += sign * num
+                num = 0
+                sign = 1
+            elif c == "-":
+                res += sign * num
+                num = 0
+                sign = -1
+            elif c =="(":
+                stack.append(res)
+                stack.append(sign)
+                sign = 1
+                res = 0 
+            elif c == ")":
+                res += num * sign
+                num = 0
+                res = res * stack.pop() + stack.pop()
+        res += num * sign
+        return res
 ```
