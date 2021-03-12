@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-10%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-12%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -37,6 +37,8 @@
 * [132.分割回文串 II](#132)
 * [1047.删除字符串中的所有相邻重复项](#1047)
 * [224.基本计算器](#224)
+* [331.验证二叉树的前序序列化](#331)
+* [227.基本计算器 II](#227)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -803,4 +805,61 @@ class Solution:
                 res = res * stack.pop() + stack.pop()
         res += num * sign
         return res
+```
+## <span id='331'>331.验证二叉树的前序序列化</span>
+边，一个空节点消耗一条边，非空节点创造两条边：
+```python
+class Solution:
+    def isValidSerialization(self, preorder: str) -> bool:
+        edge = 1
+        tmp = preorder.split(',')
+        for i in tmp:
+            edge -= 1
+            if edge < 0:return False
+            if i != '#':
+                edge += 2
+        return edge == 0
+```
+栈：
+```python
+class Solution:
+    def isValidSerialization(self, preorder: str) -> bool:
+        stack = []
+        tmp = preorder.split(',')
+        for i in tmp:
+            while stack and stack[-1] == '#' and i == '#':
+                stack.pop()
+                if not stack:
+                    return False
+                stack.pop()
+            stack.append(i)
+        return len(stack) == 1 and stack[0] == '#'
+```
+## <span id='227'>227.基本计算器 II</span>
+栈：
+```python
+class Solution:
+    def calculate(self, s: str) -> int:
+        stack = []
+        pre_ops = '+'
+        num = 0
+        for index,i in enumerate(s):
+            if i.isdigit():
+                num = num*10 + int(i)
+            if index == len(s)-1 or i in '+-*/':
+                if pre_ops == '+':
+                    stack.append(num)
+                elif pre_ops == '-':
+                    stack.append(-num)
+                elif pre_ops == '*':
+                    stack.append(stack.pop()*num)
+                elif pre_ops == '/':
+                    tmp = stack.pop()
+                    if tmp < 0:
+                        stack.append(int(tmp/num))
+                    else:
+                        stack.append(tmp//num)
+                pre_ops = i
+                num = 0
+        return sum(stack)
 ```
