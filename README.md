@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-12%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-15%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -39,6 +39,9 @@
 * [224.基本计算器](#224)
 * [331.验证二叉树的前序序列化](#331)
 * [227.基本计算器 II](#227)
+* [705.设计哈希集合](#705)
+* [706.设计哈希映射](#706)
+* [54.螺旋矩阵](#54)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -862,4 +865,67 @@ class Solution:
                 pre_ops = i
                 num = 0
         return sum(stack)
+```
+## <span id='705'>705.设计哈希集合</span>
+拉链数组：
+```python
+class MyHashSet:
+
+    def __init__(self):
+        self.buckets = 1000
+        self.itemsPerBucket = 1001
+        self.table = [[] for _ in range(self.buckets)]
+
+    def hash(self, key):
+        return key % self.buckets
+    
+    def pos(self, key):
+        return key // self.buckets
+    
+    def add(self, key):
+        hashkey = self.hash(key)
+        if not self.table[hashkey]:
+            self.table[hashkey] = [0] * self.itemsPerBucket
+        self.table[hashkey][self.pos(key)] = 1
+        
+    def remove(self, key):
+        hashkey = self.hash(key)
+        if self.table[hashkey]:
+            self.table[hashkey][self.pos(key)] = 0
+
+    def contains(self, key):
+        hashkey = self.hash(key)
+        return (self.table[hashkey] != []) and (self.table[hashkey][self.pos(key)] == 1)
+```
+## <span id='706'>706.设计哈希映射</span>
+拉链数组：
+```python
+class MyHashMap(object):
+
+    def __init__(self):
+        self.map = [[-1] * 1000 for _ in range(1001)]
+
+    def put(self, key, value):
+        row, col = key // 1000, key % 1000
+        self.map[row][col] = value
+
+    def get(self, key):
+        row, col = key // 1000, key % 1000
+        return self.map[row][col]
+
+    def remove(self, key):
+        row, col = key // 1000, key % 1000
+        self.map[row][col] = -1
+
+```
+## <span id='54'>54.螺旋矩阵</span>
+玄学：
+```python
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        tmp = []
+        while matrix:
+            tmp += matrix.pop(0)
+            matrix = list(zip(*matrix))[::-1]
+        return tmp
 ```
