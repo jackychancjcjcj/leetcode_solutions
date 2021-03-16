@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-15%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-16%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -42,6 +42,7 @@
 * [705.设计哈希集合](#705)
 * [706.设计哈希映射](#706)
 * [54.螺旋矩阵](#54)
+* [59.螺旋矩阵II](#59)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -928,4 +929,22 @@ class Solution:
             tmp += matrix.pop(0)
             matrix = list(zip(*matrix))[::-1]
         return tmp
+```
+## <span id='59'>59.螺旋矩阵II</span>
+模拟：
+```python
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        res = [[0]*n for _ in range(n)]
+        row,col,index=0,0,0
+        tmp = [[0,1],[1,0],[0,-1],[-1,0]]
+        for i in range(n*n):
+            res[row][col] += (i+1)
+            r,c = tmp[index]
+            tmp_r,tmp_c = row + r,col + c
+            if tmp_r < 0 or tmp_r >= n or tmp_c < 0 or tmp_c >= n or res[tmp_r][tmp_c] > 0:
+                index = (index+1)%4
+                r,c = tmp[index]
+            row,col = row+r,col+c
+        return res
 ```
