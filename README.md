@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-16%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-18%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -43,6 +43,7 @@
 * [706.设计哈希映射](#706)
 * [54.螺旋矩阵](#54)
 * [59.螺旋矩阵II](#59)
+* [92.反转链表 II](#92)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -947,4 +948,32 @@ class Solution:
                 r,c = tmp[index]
             row,col = row+r,col+c
         return res
+```
+## <span id='92'>92.反转链表 II</span>
+指针法：
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseBetween(self, head: ListNode, left: int, right: int) -> ListNode:
+        count = 1
+        dummy = ListNode(0)
+        dummy.next = head
+        pre = dummy
+        while pre.next and count < left:
+            pre = pre.next
+            count += 1
+        cur = pre.next
+        tail = cur
+        while cur and count <= right:
+            tmp = cur.next
+            cur.next = pre.next
+            pre.next = cur
+            tail.next = tmp
+            cur = tmp
+            count += 1
+        return dummy.next
 ```
