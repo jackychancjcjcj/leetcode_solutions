@@ -45,6 +45,8 @@
 * [59.螺旋矩阵II](#59)
 * [92.反转链表 II](#92)
 * [191.位1的个数](#191)
+* [150.逆波兰表达式求值](#150)
+* [73.矩阵置零](#73)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -996,4 +998,55 @@ class Solution:
             res += 1
 
         return res
+```
+## <span id='150'>150. 逆波兰表达式求值</span>
+栈：
+```python
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        func = {
+            '+':add,
+            '-':sub,
+            '*':mul,
+            '/':lambda x,y:int(x/y)
+        }
+
+        stack = list()
+        for token in tokens:
+            try:
+                value = int(token)
+            except ValueError:
+                num_1 = stack.pop()
+                num_2 = stack.pop()
+                value = func[token](num_2,num_1)
+            stack.append(value)
+
+        return stack[0]
+```
+## <span id='73'>73. 矩阵置零</span>
+双指针：
+```python
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        m, n = len(matrix), len(matrix[0])
+        flag_col0 = any(matrix[i][0] == 0 for i in range(m))
+        flag_row0 = any(matrix[0][j] == 0 for j in range(n))
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                if matrix[i][j] == 0:
+                    matrix[i][0] = matrix[0][j] = 0
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                if matrix[i][0] == 0 or matrix[0][j] == 0:
+                    matrix[i][j] = 0
+        
+        if flag_col0:
+            for i in range(m):
+                matrix[i][0] = 0
+        
+        if flag_row0:
+            for j in range(n):
+                matrix[0][j] = 0
 ```
