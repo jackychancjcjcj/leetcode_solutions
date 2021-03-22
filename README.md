@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-18%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-22%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -44,6 +44,7 @@
 * [54.螺旋矩阵](#54)
 * [59.螺旋矩阵II](#59)
 * [92.反转链表 II](#92)
+* [191.位1的个数](#191)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -976,4 +977,23 @@ class Solution:
             cur = tmp
             count += 1
         return dummy.next
+```
+## <span id='191'>191.位1的个数</span>
+位运算：
+```python
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        res = sum(1 for i in range(32) if n & (1<<i))
+        return res
+```
+位运算性质, n & n-1是将末位的1变为0：
+```python
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        res = 0
+        while n:
+            n &= n-1
+            res += 1
+
+        return res
 ```
