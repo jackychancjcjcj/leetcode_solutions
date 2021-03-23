@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-22%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-23%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -47,6 +47,7 @@
 * [191.位1的个数](#191)
 * [150.逆波兰表达式求值](#150)
 * [73.矩阵置零](#73)
+* [341.扁平化嵌套列表迭代器](#341)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1049,4 +1050,49 @@ class Solution:
         if flag_row0:
             for j in range(n):
                 matrix[0][j] = 0
+```
+## <span id='341'>341.扁平化嵌套列表迭代器</span>
+列表+递归：
+```python
+class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        self.points = 0
+        self.lists = []
+        def gen(lists):
+            for i in lists:
+                if i.isInteger():
+                    self.lists.append(i.getInteger())
+                else:
+                    gen(i.getList())
+        gen(nestedList)
+
+    def next(self) -> int:
+        self.points += 1
+        return self.lists[self.points-1]
+        
+    def hasNext(self) -> bool:
+        if self.points >= len(self.lists):
+             return False
+        return True
+```
+栈+递归：
+```python
+class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        from collections import deque
+        self.q = deque()
+        self.dfs(nestedList)
+        
+    def dfs(self, nestedList):
+        for elem in nestedList:
+            if elem.isInteger():
+                self.q.append(elem.getInteger())
+            else:
+                self.dfs(elem.getList())    
+    
+    def next(self) -> int:
+        return self.q.popleft()
+    
+    def hasNext(self) -> bool:
+        return len(self.q)
 ```
