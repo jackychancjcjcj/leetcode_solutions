@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-23%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-24%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -48,6 +48,7 @@
 * [150.逆波兰表达式求值](#150)
 * [73.矩阵置零](#73)
 * [341.扁平化嵌套列表迭代器](#341)
+* [456.132模式](#456)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1095,4 +1096,23 @@ class NestedIterator:
     
     def hasNext(self) -> bool:
         return len(self.q)
+```
+## <span id='456'>456.132模式</span>
+枚举3：
+```python
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+        n = len(nums)
+        if n < 3:return False
+        min_left = nums[0]
+        tmp = sorted(nums[2:])
+        from bisect import bisect_right 
+        for i in range(1,n-1):
+            if nums[i] > min_left:
+                index = bisect_right(tmp,min_left)
+                if index < len(tmp) and nums[i] > tmp[index]:
+                    return True
+            min_left = min(min_left,nums[i])
+            tmp.remove(nums[i+1])
+        return False
 ```
