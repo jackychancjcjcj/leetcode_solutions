@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-24%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-30%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -49,6 +49,8 @@
 * [73.矩阵置零](#73)
 * [341.扁平化嵌套列表迭代器](#341)
 * [456.132模式](#456)
+* [74.搜索二维矩阵](#74)
+* [190.颠倒二进制位](#190)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1115,4 +1117,35 @@ class Solution:
             min_left = min(min_left,nums[i])
             tmp.remove(nums[i+1])
         return False
+```
+## <span id='74'>74.搜索二维矩阵</span>
+二分查找：
+```python
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool: 
+        n,m = len(matrix),len(matrix[0])
+        import bisect
+        row0 = [row[0] for row in matrix]
+        row = bisect.bisect_right(row0,target) - 1
+        if row < 0:
+            return False
+        col0 = matrix[row]
+        col = bisect.bisect_left(col0,target)
+        if col >= m:
+            return False
+        if matrix[row][col] == target:
+            return True
+        else:
+            return False
+```
+## <span id='190'>190.颠倒二进制位</span>
+位运算：
+```python
+class Solution:
+    def reverseBits(self, n: int) -> int:
+        res = 0
+        for i in range(32):
+            res = (res<<1) | (n&1)
+            n >>= 1
+        return res
 ```
