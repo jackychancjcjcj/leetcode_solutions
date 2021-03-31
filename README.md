@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-30%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-31%20Mar%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -51,6 +51,7 @@
 * [456.132模式](#456)
 * [74.搜索二维矩阵](#74)
 * [190.颠倒二进制位](#190)
+* [90.子集 II](#90)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1148,4 +1149,20 @@ class Solution:
             res = (res<<1) | (n&1)
             n >>= 1
         return res
+```
+## <span id='90'>90.子集 II</span>
+回溯：
+```python
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        nums.sort()
+        self.dfs(nums, 0, res, [])
+        return res
+    
+    def dfs(self, nums, index, res, path):
+        if path not in res:
+            res.append(path)
+        for i in range(index, len(nums)):
+            self.dfs(nums, i + 1, res, path + [nums[i]])
 ```
