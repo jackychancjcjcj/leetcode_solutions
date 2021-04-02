@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-01%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-02%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -53,6 +53,7 @@
 * [190.颠倒二进制位](#190)
 * [90.子集 II](#90)
 * [1006.笨阶乘](#1006)
+* [面试题17.21.直方图的水量](#17.21)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1211,4 +1212,39 @@ class Solution:
                 stack.append(-i)
             op = (op+1)%4
         return sum(stack)
+```
+## <span id='17.21'>面试题17.21.直方图的水量</span>
+动态规划：
+```python
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        if not height:
+            return 0
+        n = len(height)
+        left_max = [height[0]] + [0]*(n-1)
+        for i in range(1,n):
+            left_max[i] = max(left_max[i-1],height[i])
+        right_max = [0]*(n-1)+[height[n-1]]
+        for i in range(n-2,-1,-1):
+            right_max[i] = max(right_max[i+1],height[i])
+        return sum(min(right_max[i],left_max[i])-height[i] for i in range(n))
+```
+双指针：
+```python
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        if not height:return 0
+        ans = 0
+        left,right = 0,len(height)-1
+        left_max,right_max = 0,0
+        while left < right:
+            left_max = max(left_max,height[left])
+            right_max = max(right_max,height[right])
+            if height[left] < height[right]:
+                ans += left_max - height[left]
+                left += 1
+            else:
+                ans += right_max - height[right]
+                right -= 1
+        return ans
 ```
