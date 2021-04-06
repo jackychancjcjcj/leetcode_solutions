@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-02%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-06%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -54,6 +54,7 @@
 * [90.子集 II](#90)
 * [1006.笨阶乘](#1006)
 * [面试题17.21.直方图的水量](#17.21)
+* [80.删除有序数组中的重复项 II](#80)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1248,3 +1249,21 @@ class Solution:
                 right -= 1
         return ans
 ```
+## <span id='80'>80.删除有序数组中的重复项 II</span>
+双指针：
+```
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n < 2:
+            return 1
+        i = 2
+        for j in range(2,n):
+            if nums[j] != nums[i-2]:
+                nums[i] = nums[j]
+                i += 1
+        return i
+```
+
+            
+            
