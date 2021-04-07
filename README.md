@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-06%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-07%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -55,6 +55,7 @@
 * [1006.笨阶乘](#1006)
 * [面试题17.21.直方图的水量](#17.21)
 * [80.删除有序数组中的重复项 II](#80)
+* [81.搜索旋转排序数组 II](#81)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1264,6 +1265,41 @@ class Solution:
                 i += 1
         return i
 ```
+## <span id='81'>81.搜索旋转排序数组 II</span>
+原创蛇皮解法：
+```python
+class Solution:
+    def search(self, nums: List[int], target: int) -> bool:
+        n = len(nums)
+        if n == 1:
+            return nums[0]==target
+        index = 0
+        for i in range(1,n):
+            if nums[i] < nums[i-1]:
+                index = i
+                break
+        if not index:
+            if target in nums:
+               return True
+            else:
+                return False
 
+        import bisect
+        if target > nums[-1]:
+            i = bisect.bisect_right(nums[:index],target)
+            if i == 0:
+                return False
+            elif nums[i-1] == target:
+                return True
+        elif target == nums[-1]:
+            return True
+        elif target < nums[-1]:
+            i = bisect.bisect_right(nums[index:],target)
+            if i == 0:
+                return False
+            elif nums[index:][i-1] == target:
+                return True
+        return False
+```
             
             
