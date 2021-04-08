@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-07%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-08%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -56,6 +56,7 @@
 * [面试题17.21.直方图的水量](#17.21)
 * [80.删除有序数组中的重复项 II](#80)
 * [81.搜索旋转排序数组 II](#81)
+* [153.寻找旋转排序数组中的最小值](#153)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1301,5 +1302,17 @@ class Solution:
                 return True
         return False
 ```
-            
+## <span id='153'>153. 寻找旋转排序数组中的最小值</span>
+```python
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        l,r = 0,len(nums)-1
+        while l < r:
+            mid = (l+r) >> 1
+            if nums[mid] > nums[r]:
+                l = mid + 1
+            elif nums[mid] < nums[r]:
+                r = mid
+        return nums[l]
+```
             
