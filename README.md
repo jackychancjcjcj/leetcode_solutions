@@ -57,6 +57,7 @@
 * [80.删除有序数组中的重复项 II](#80)
 * [81.搜索旋转排序数组 II](#81)
 * [153.寻找旋转排序数组中的最小值](#153)
+* [154.寻找旋转排序数组中的最小值 II](#154)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1315,4 +1316,22 @@ class Solution:
                 r = mid
         return nums[l]
 ```
-            
+## <span id='154'>154. 寻找旋转排序数组中的最小值 II</span>
+二分查找：
+```python
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
+        l,r = 0,len(nums)-1
+        while l < r:
+            mid = (l+r) >> 1
+            if nums[mid] > nums[r]:
+                l = mid + 1
+            elif nums[mid] == nums[r]:
+                # l += 1
+                r -= 1
+            elif nums[mid] < nums[r]:
+                r = mid
+        return nums[l]
+```
