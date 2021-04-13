@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-12%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-13%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -59,6 +59,7 @@
 * [153.寻找旋转排序数组中的最小值](#153)
 * [154.寻找旋转排序数组中的最小值 II](#154)
 * [179.最大数](#179)
+* [783.二叉搜索树节点最小距离](#783)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1355,4 +1356,18 @@ class Solution:
         if res[0] == '0':
             return '0'
         return res
+```
+## <span id='783'>783.二叉搜索树节点最小距离</span>
+中序遍历：
+```python
+class Solution:
+    def minDiffInBST(self, root: TreeNode) -> int:
+        tmp = []
+        def cc(root):
+            if root:
+                cc(root.left)
+                tmp.append(root.val)
+                cc(root.right)
+        cc(root)
+        return min([tmp[i+1]-tmp[i] for i in range(len(tmp)-1)])
 ```
