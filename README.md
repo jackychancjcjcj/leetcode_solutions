@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-13%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-16%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -60,6 +60,7 @@
 * [154.寻找旋转排序数组中的最小值 II](#154)
 * [179.最大数](#179)
 * [783.二叉搜索树节点最小距离](#783)
+* [87. 扰乱字符串](#87)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1370,4 +1371,23 @@ class Solution:
                 cc(root.right)
         cc(root)
         return min([tmp[i+1]-tmp[i] for i in range(len(tmp)-1)])
+```
+## <span id='87'>87. 扰乱字符串</span>
+递归：
+```python
+class Solution:
+    @cache
+    def isScramble(self, s1: str, s2: str) -> bool:
+        if len(s1) != len(s2):
+            return False
+        if s1 == s2:
+            return True
+        if sorted(s1) != sorted(s2):
+            return False
+
+        for i in range(1, len(s1)):
+            if self.isScramble(s1[:i], s2[:i]) and self.isScramble(s1[i:], s2[i:]) or \
+                    (self.isScramble(s1[:i], s2[-i:]) and self.isScramble(s1[i:], s2[:-i])):
+                return True
+        return False
 ```
