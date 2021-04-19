@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-16%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-19%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -61,6 +61,7 @@
 * [179.最大数](#179)
 * [783.二叉搜索树节点最小距离](#783)
 * [87. 扰乱字符串](#87)
+* [27. 移除元素](#27)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1390,4 +1391,17 @@ class Solution:
                     (self.isScramble(s1[:i], s2[-i:]) and self.isScramble(s1[i:], s2[:-i])):
                 return True
         return False
+```
+## <span id='27'>27. 移除元素</span>
+双指针：
+```python
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        a = b = 0
+        while a < len(nums):
+            if nums[a] != val:
+                nums[b] = nums[a]
+                b += 1
+            a += 1
+        return b
 ```
