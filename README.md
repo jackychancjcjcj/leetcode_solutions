@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-19%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-25%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -62,6 +62,8 @@
 * [783.二叉搜索树节点最小距离](#783)
 * [87. 扰乱字符串](#87)
 * [27. 移除元素](#27)
+* [377. 组合总和 Ⅳ](#377)
+* [897. 递增顺序搜索树](#897)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1404,4 +1406,39 @@ class Solution:
                 b += 1
             a += 1
         return b
+```
+## <span id='377'>377. 组合总和 Ⅳ</span>
+动态规划:
+```python
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        dp = [1] + [0]*target
+        for i in range(1,target+1):
+            for num in nums:
+                if num <= i:
+                    dp[i] += dp[i-num]
+        return dp[target]
+```
+## <span id='897'>897. 递增顺序搜索树</span>
+```python
+class Solution:
+    def increasingBST(self, root: TreeNode) -> TreeNode:
+        def sort(root,ls):
+            if not root:
+                return 
+            if root.left:
+                sort(root.left,ls)
+            ls.append(root.val)
+            if root.right:
+                sort(root.right,ls)
+        res = []
+        sort(root,res)
+        ans = cur = TreeNode(None)
+        for i in res:
+            cur.val = i
+            if i == res[-1]:
+                break
+            cur.right = TreeNode(None)
+            cur = cur.right
+        return ans
 ```
