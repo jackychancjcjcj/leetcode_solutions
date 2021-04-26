@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-25%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-26%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -64,6 +64,7 @@
 * [27. 移除元素](#27)
 * [377. 组合总和 Ⅳ](#377)
 * [897. 递增顺序搜索树](#897)
+* [1011. 在 D 天内送达包裹的能力](#1011)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1441,4 +1442,25 @@ class Solution:
             cur.right = TreeNode(None)
             cur = cur.right
         return ans
+```
+## <span id='1011'>1011. 在 D 天内送达包裹的能力</span>
+二分查找:
+```python
+class Solution:
+    def shipWithinDays(self, weights: List[int], D: int) -> int:
+        left,right = max(weights),sum(weights)
+        while left < right:
+            need = 1
+            cur = 0
+            mid = (left+right) // 2
+            for i in weights:
+                if cur + i> mid:
+                    need += 1
+                    cur = 0
+                cur += i
+            if need <= D:
+                right = mid
+            else:
+                left = mid + 1
+        return left
 ```
