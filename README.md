@@ -65,6 +65,7 @@
 * [377. 组合总和 Ⅳ](#377)
 * [897. 递增顺序搜索树](#897)
 * [1011. 在 D 天内送达包裹的能力](#1011)
+* [938. 二叉搜索树的范围和](#938)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1463,4 +1464,37 @@ class Solution:
             else:
                 left = mid + 1
         return left
+```
+## <span id='938'>938. 二叉搜索树的范围和</span>
+广度优先：
+```python
+class Solution:
+    def rangeSumBST(self, root: TreeNode, low: int, high: int) -> int:
+        q = collections.deque([root])
+        res = 0
+        while q:
+            node = q.popleft()
+            if not node:
+                continue
+            if node.val > high:
+                q.append(node.left)
+            elif node.val < low:
+                q.append(node.right)
+            else:
+                res += node.val
+                q.append(node.left)
+                q.append(node.right)
+        return res
+```
+深度优先：
+```python
+class Solution:
+    def rangeSumBST(self, root: TreeNode, low: int, high: int) -> int:
+        if not root:
+            return 0
+        if root.val > high:
+            return self.rangeSumBST(root.left,low,high)
+        if root.val < low:
+            return self.rangeSumBST(root.right,low,high)
+        return root.val + self.rangeSumBST(root.left,low,high) + self.rangeSumBST(root.right,low,high)
 ```
