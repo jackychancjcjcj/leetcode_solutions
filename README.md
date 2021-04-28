@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-26%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-28%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -66,6 +66,7 @@
 * [897. 递增顺序搜索树](#897)
 * [1011. 在 D 天内送达包裹的能力](#1011)
 * [938. 二叉搜索树的范围和](#938)
+* [633. 平方数之和](#633)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1497,4 +1498,21 @@ class Solution:
         if root.val < low:
             return self.rangeSumBST(root.right,low,high)
         return root.val + self.rangeSumBST(root.left,low,high) + self.rangeSumBST(root.right,low,high)
+```
+## <span id='633'>633. 平方数之和</span>
+双指针:
+```python
+class Solution:
+    def judgeSquareSum(self, c: int) -> bool:
+        low = 0
+        high = int(c**.5)
+        while low <= high:
+            res = low**2 + high**2
+            if res == c:
+                return True
+            if res > c:
+                high -= 1
+            else:
+                low += 1
+        return False
 ```
