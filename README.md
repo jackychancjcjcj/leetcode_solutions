@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-28%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-29%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -67,6 +67,7 @@
 * [1011. 在 D 天内送达包裹的能力](#1011)
 * [938. 二叉搜索树的范围和](#938)
 * [633. 平方数之和](#633)
+* [403. 青蛙过河](#403)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1515,4 +1516,21 @@ class Solution:
             else:
                 low += 1
         return False
+```
+## <span id='403'>403. 青蛙过河</span>
+记忆化回溯 or dfs+记忆化：
+```python
+class Solution:
+    def canCross(self, stones: List[int]) -> bool:
+        @lru_cache(None)
+        def dfs(pos,step):
+            if pos == stones[-1]:
+                return True
+            for d in [-1,0,1]:
+                if step + d > 0 and pos + step + d in set(stones):
+                    if dfs(pos+step+d,step+d):
+                        return True
+            return False
+        pos,step = 0,0
+        return dfs(pos,step)
 ```
