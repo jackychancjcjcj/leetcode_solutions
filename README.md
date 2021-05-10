@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-29%20Apr%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-10%20May%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -68,6 +68,7 @@
 * [938. 二叉搜索树的范围和](#938)
 * [633. 平方数之和](#633)
 * [403. 青蛙过河](#403)
+* [872. 叶子相似的树](#872)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1533,4 +1534,20 @@ class Solution:
             return False
         pos,step = 0,0
         return dfs(pos,step)
+```
+## <span id='872'>872. 叶子相似的树</span>
+dfs:
+```python
+class Solution:
+    def leafSimilar(self, root1: TreeNode, root2: TreeNode) -> bool:
+        def cc(root):
+            if not root.left and not root.right:
+                yield root.val
+            if root.left:
+                yield from cc(root.left)
+            if root.right:
+                yield from cc(root.right)
+        res1 = list(cc(root1)) if root1 else list()
+        res2 = list(cc(root2)) if root2 else list()
+        return res1 == res2
 ```
