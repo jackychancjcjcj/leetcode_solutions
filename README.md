@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-10%20May%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-13%20May%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -69,6 +69,7 @@
 * [633. 平方数之和](#633)
 * [403. 青蛙过河](#403)
 * [872. 叶子相似的树](#872)
+* [1269. 停在原地的方案数](#1269)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1550,4 +1551,22 @@ class Solution:
         res1 = list(cc(root1)) if root1 else list()
         res2 = list(cc(root2)) if root2 else list()
         return res1 == res2
+```
+## <span id='1269'>1269. 停在原地的方案数</span>
+动态规划:
+```python
+class Solution:
+    def numWays(self, steps: int, arrLen: int) -> int:
+        maxCols = min(arrLen-1,steps)
+        mod = 10**9 + 7
+        dp = [[0]*(maxCols+1) for _ in range(steps+1)]
+        dp[0][0] = 1
+        for i in range(1,steps+1):
+            for j in range(0,maxCols+1):
+                dp[i][j] = dp[i-1][j]
+                if j - 1 >= 0:
+                    dp[i][j] = (dp[i][j] + dp[i-1][j-1]) % mod
+                if j + 1 <= maxCols:
+                    dp[i][j] = (dp[i][j] + dp[i-1][j+1]) % mod               
+        return dp[steps][0]
 ```
