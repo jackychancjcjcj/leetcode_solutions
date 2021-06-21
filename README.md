@@ -2,7 +2,7 @@
 ![Author](https://img.shields.io/badge/Author-CJ-red.svg "Author")
 ![LICENSE](https://img.shields.io/github/license/JoeyBling/hexo-theme-yilia-plus "LICENSE")
 ![Language](https://img.shields.io/badge/Language-python3.6-green.svg "Laguage")
-![Last update](https://img.shields.io/badge/last%20update-13%20May%202021-brightgreen.svg?style=flat-square "Last update")
+![Last update](https://img.shields.io/badge/last%20update-21%20Jun%202021-brightgreen.svg?style=flat-square "Last update")
 * [424.替换后的最长重复字符](#424)
 * [408.滑动窗口中位数](#408)
 * [643.子数组最大平均数I](#643-1)
@@ -70,6 +70,7 @@
 * [403. 青蛙过河](#403)
 * [872. 叶子相似的树](#872)
 * [1269. 停在原地的方案数](#1269)
+* [401. 二进制手表](#401)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1569,4 +1570,20 @@ class Solution:
                 if j + 1 <= maxCols:
                     dp[i][j] = (dp[i][j] + dp[i-1][j+1]) % mod               
         return dp[steps][0]
+```
+## <span id='401'>401. 二进制手表</span>
+穷举:
+```python
+class Solution:
+    def readBinaryWatch(self, turnedOn: int) -> List[str]:
+        tabel = {0:[],1:[],2:[],3:[],4:[],5:[],6:[]}
+        res = []
+        for i in range(60):
+            tabel[bin(i).count('1')].append(i)
+        for h in range(12):
+            key = turnedOn - bin(h).count('1')
+            if key < 0 or key > 6:continue
+            for minute in tabel[key]:
+                res.append(str(h) + ':' + ('0' if minute < 10 else '') + str(minute))
+        return res
 ```
