@@ -71,6 +71,7 @@
 * [872. 叶子相似的树](#872)
 * [1269. 停在原地的方案数](#1269)
 * [401. 二进制手表](#401)
+* [剑指 Offer II 001. 整数除法](#JZ001)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1586,4 +1587,27 @@ class Solution:
             for minute in tabel[key]:
                 res.append(str(h) + ':' + ('0' if minute < 10 else '') + str(minute))
         return res
+```
+## <span id='JZ001'>剑指 Offer II 001. 整数除法</span>
+一般机考不会考这种，位运算复习，<<1 表示乘以2^0
+```python
+class Solution:
+    def divide(self, a: int, b: int) -> int:
+        
+        flag = -1 if (a>0) ^ (b>0) else 1
+        a,b = abs(a),abs(b)
+
+        def cal(x,y):
+            n = 1 
+            while x > y << 1:
+                y <<= 1
+                n <<= 1
+            return n,y
+        res = 0
+        while a>=b:
+            t,z = cal(a,b)
+            res += t
+            a -= z
+        res *= flag
+        return res if res < 2**31 else res-1
 ```
