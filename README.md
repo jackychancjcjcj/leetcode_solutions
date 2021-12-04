@@ -72,6 +72,7 @@
 * [1269. 停在原地的方案数](#1269)
 * [401. 二进制手表](#401)
 * [剑指 Offer II 001. 整数除法](#JZ001)
+* [剑指 Offer II 008. 和大于等于 target 的最短子数组](#JZ008)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1610,4 +1611,22 @@ class Solution:
             a -= z
         res *= flag
         return res if res < 2**31 else res-1
+```
+## <span id='JZ008'>剑指 Offer II 008. 和大于等于 target 的最短子数组</span>
+滑动窗口法，很经典
+```python
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        total = 0
+        start,end = 0,0
+        length = len(nums)
+        res = inf
+        while end < length:
+            total += nums[end]
+            while total >= target:
+                res = min(res,end-start+1)                
+                total -= nums[start]
+                start += 1
+            end += 1
+        return 0 if res==inf else res 
 ```
