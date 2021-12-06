@@ -73,6 +73,7 @@
 * [401. 二进制手表](#401)
 * [剑指 Offer II 001. 整数除法](#JZ001)
 * [剑指 Offer II 008. 和大于等于 target 的最短子数组](#JZ008)
+* [剑指 Offer II 010. 和为 k 的子数组](#JZ010)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1629,4 +1630,17 @@ class Solution:
                 start += 1
             end += 1
         return 0 if res==inf else res 
+```
+## <span id='JZ010'>剑指 Offer II 010. 和为 k 的子数组</span>
+前缀和的方法，简单来说就是用一个dict来存累计
+```python
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        tmp = {0:1}
+        a = b = 0
+        for i in nums:
+            a += i
+            b += tmp.get(a-k,0)
+            tmp[a] = tmp.get(a,0)+1
+        return b
 ```
