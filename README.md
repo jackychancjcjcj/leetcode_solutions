@@ -74,6 +74,7 @@
 * [剑指 Offer II 001. 整数除法](#JZ001)
 * [剑指 Offer II 008. 和大于等于 target 的最短子数组](#JZ008)
 * [剑指 Offer II 010. 和为 k 的子数组](#JZ010)
+* [剑指 Offer II 014. 字符串中的变位词](#JZ014)
 ## <span id='424'>424.替换后的最长重复字符</span>
 双指针法，动态窗口：
 ```python
@@ -1643,4 +1644,24 @@ class Solution:
             b += tmp.get(a-k,0)
             tmp[a] = tmp.get(a,0)+1
         return b
+```
+## <span id='JZ014'>剑指 Offer II 014. 字符串中的变位词</span>
+动态维护数组，并且用ord值存字母，比用排列组合省多了。
+```python
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        arr1, arr2, lg = [0] * 26, [0] * 26, len(s1)
+        if lg > len(s2):
+            return False
+
+        for i in range(lg):
+            arr1[ord(s1[i]) - ord('a')] += 1
+            arr2[ord(s2[i]) - ord('a')] += 1
+
+        for j in range(lg, len(s2)):
+            if arr1 == arr2:
+                return True
+            arr2[ord(s2[j - lg]) - ord('a')] -= 1
+            arr2[ord(s2[j]) - ord('a')] += 1
+        return arr1 == arr2
 ```
