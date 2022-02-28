@@ -65,21 +65,26 @@ for 状态1 in 状态1的所有取值：
 ## <span id='5.1'>模板一</span>
 对于每一个节点，往下遍历
 ```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def minDepth(self, root: TreeNode) -> int:
-        if not root:
-            return 0
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+
+        res = []
+        def dfs(root):
+            if not root:
+                return
+            
+            dfs(root.left)
+            res.append(root.val)
+            dfs(root.right)
         
-        if not root.left and not root.right:
-            return 1
-        
-        min_depth = 10**9
-        if root.left:
-            min_depth = min(self.minDepth(root.left), min_depth)
-        if root.right:
-            min_depth = min(self.minDepth(root.right), min_depth)
-        
-        return min_depth + 1
+        dfs(root)
+        return res
 ```
 # <span id='6'>广度优先搜索</span>
 ## <span id='6.1'>模板一</span>
