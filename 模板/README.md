@@ -5,6 +5,10 @@
   * [模板一](#3.1)
 * [动态规划](#4)
   * [模板一](#4.1)
+* [深度优先搜索](#5)
+  * [模板一](#5.1)
+* [广度优先搜索](#6)
+  * [模板一](#6.1)
 # <span id='1'>二分查找</span>
 ## <span id='1.1'>模板一</span>
 核心思想就是维护两个指针，每次在中间找数。
@@ -56,4 +60,45 @@ for 状态1 in 状态1的所有取值：
     for 状态2 in 状态2的所有取值：
         for ...
             dp[状态1][状态2][...] = 求最值(选择1，选择2...)
+```
+# <span id='5'>深度优先搜索</span>
+## <span id='5.1'>模板一</span>
+对于每一个节点，往下遍历
+```python
+class Solution:
+    def minDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        
+        if not root.left and not root.right:
+            return 1
+        
+        min_depth = 10**9
+        if root.left:
+            min_depth = min(self.minDepth(root.left), min_depth)
+        if root.right:
+            min_depth = min(self.minDepth(root.right), min_depth)
+        
+        return min_depth + 1
+```
+# <span id='6'>广度优先搜索</span>
+## <span id='6.1'>模板一</span>
+对于每一个节点，往右遍历
+```python
+class Solution:
+    def minDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+
+        que = collections.deque([(root, 1)])
+        while que:
+            node, depth = que.popleft()
+            if not node.left and not node.right:
+                return depth
+            if node.left:
+                que.append((node.left, depth + 1))
+            if node.right:
+                que.append((node.right, depth + 1))
+        
+        return 0
 ```
