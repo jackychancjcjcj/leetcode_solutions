@@ -9,6 +9,12 @@
   * [模板一](#5.1)
 * [广度优先搜索](#6)
   * [模板一](#6.1)
+* [排序](#7)
+  * [冒泡排序](#7.1)
+  * [选择排序](#7.2)
+  * [插入排序](#7.3)
+  * [希尔排序](#7.4)
+  * [归并排序](#7.5)
 # <span id='1'>二分查找</span>
 ## <span id='1.1'>模板一</span>
 核心思想就是维护两个指针，每次在中间找数。
@@ -107,4 +113,78 @@ class Solution:
                 que.append((node.right, depth + 1))
         
         return 0
+```
+# <span id='7'>排序</span>
+## <span id='7.1'>冒泡排序</span>
+* 原理：每一轮都是前后比较交换位置。
+* 最好时间复杂度o(n),最坏时间复杂度o(n^2)，稳定.
+```python
+for i in range(len(nums)):
+    for j in range(0,len(nums)-i-1):
+        if nums[j] > nums[j+1]:
+            nums[j], nums[j+1] = nums[j+1], nums[j]
+```
+## <span id='7.2'>选择排序</span>
+* 原理：每一轮找到数组中最小的值，交换到该轮数组首位。
+* 最好时间复杂度o(n^2),最坏时间复杂度o(n^2)，不稳定.
+```python
+for i in range(len(nums)-1):
+    min_index = i
+    for j in range(i+1,len(nums)):
+        if nums[min_index] > nums[j]:
+            min_index = j
+    nums[i], nums[min_index] = nums[min_index], nums[i]
+```
+## <span id='7.3'>插入排序</span>
+* 原理：每一轮将当前数字与前面以排序数组比较插入。
+* 最好时间复杂度o(n),最坏时间复杂度o(n^2)，稳定.
+```python
+for i in range(1,len(nums)):
+    key = nums[i]
+    j = i - 1
+    while j >= 0 and key < nums[j]:
+        nums[j+1] = nums[j]
+        j -= 1
+    nums[j+1] = key
+```
+## <span id='7.4'>希尔排序</span>
+* 原理：将数组异步长gap分组，每组内插入排序，然后gap/2继续插入排序。
+* 最好时间复杂度o(nlogn),最坏时间复杂度o(n^2)，不稳定.
+```python
+gap = int(len(nums)/2)
+while gap > 0:
+    for i in range(gap,len(nums)):
+        key = nums[i]
+        j = i
+        while j-gap >= 0 and key < nums[j-gap]:
+            nums[j] = nums[j-gap]
+            j -= gap
+        nums[j] = key
+    gap = int(gap/2)
+```
+## <span id='7.5'>归并排序</span>
+* 原理：主要是递归或者说分治，将数组切分到最细粒度，每个子递归有左右两块，两块分别是有序的，然后进行合并，总体看就是分治和合并的过程。
+* 最好时间复杂度o(nlogn),最坏时间复杂度o(nlogn)，稳定，但空间复杂度上来了，o(n).
+```python
+def mergesort(tmp):
+    n = len(tmp)
+    if n <= 1:
+        return tmp
+    mid = n // 2
+    l_arr = mergesort(tmp[:mid])
+    r_arr = mergesort(tmp[mid:])
+    l,r = 0,0
+    res = []
+    while l < len(l_arr) and r < len(r_arr):
+        if l_arr[l] < r_arr[r]:
+            res.append(l_arr[l])
+            l += 1
+        else:
+            res.append(r_arr[r])
+            r += 1                      
+    res += l_arr[l:]
+    res += r_arr[r:]
+    return res
+
+output = mergesort(nums)
 ```
