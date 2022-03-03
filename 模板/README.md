@@ -188,3 +188,29 @@ def mergesort(tmp):
 
 output = mergesort(nums)
 ```
+## <span id='7.6'>快速排序</span>
+* 原理：递归，找到一个标的，比枢纽大的放右边，比枢纽小的放左边，每一轮都能确定这个枢纽在数组中的位置，递归就是处理枢纽左子序列和右子序列。
+* 最好时间复杂度o(nlogn),最坏时间复杂度o(n^2)，不稳定，空间复杂度o(logn).
+```python
+ def quicksort(nums,left,right):
+     if left < right:
+         l = left
+         r = right
+         key = nums[left]
+         while r > l:
+             while l < r and nums[r] > key:
+                 r -= 1
+             if l < r:
+                 nums[l] = nums[r]
+                 l += 1
+             while l < r and nums[l] < key:
+                 l += 1
+             if l < r:
+                 nums[r] = nums[l]
+                 r -= 1
+         nums[l] = key
+         quicksort(nums,left,l-1)
+         quicksort(nums,l+1,right)
+
+ quicksort(nums,0,len(nums)-1)
+```
